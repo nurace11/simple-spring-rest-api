@@ -1,9 +1,11 @@
-package com.nuracell.simple_rest_api;
+package com.nuracell.simplerestapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 
 @SpringBootApplication
+@EnableCaching
 public class SimpleRestApiApplication {
 
 	public static void main(String[] args) {
