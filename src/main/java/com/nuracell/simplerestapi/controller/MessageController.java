@@ -4,6 +4,8 @@ import com.nuracell.simplerestapi.entity.Message;
 import com.nuracell.simplerestapi.service.MessageService;
 import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +20,8 @@ public class MessageController {
     private final MessageService messageService;
 
     @GetMapping
-    public ResponseEntity<List<Message>> getMessages(@PathParam("page") Integer page) {
-        return ResponseEntity.ok(messageService.findAll());
+    public ResponseEntity<List<Message>> getMessages(Pageable pageable) {
+        return ResponseEntity.ok(messageService.findLimited(pageable));
     }
 
     @GetMapping("{id}")

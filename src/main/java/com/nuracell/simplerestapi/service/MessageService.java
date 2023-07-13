@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -18,9 +19,16 @@ public class MessageService {
 
     private final MessageRepository messageRepository;
 
+    private final Integer MAX_PAGE_LIMIT = 100;
 
-    public List<Message> findAll() {
-        return messageRepository.findAll();
+
+    public List<Message> findLimited(Pageable pageable) {
+        if (pageable.getPageNumber() * pageable.getPageSize() >= MAX_PAGE_LIMIT) {
+            throw new IllegalArgumentException(
+                    "Invalid page request. Page * Size must be less than " + MAX_PAGE_LIMIT
+            );
+        }
+        return messageRepository.findAll(pageable).getContent();
     }
 
     @Cacheable("messages")
