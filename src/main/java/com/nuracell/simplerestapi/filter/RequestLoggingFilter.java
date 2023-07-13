@@ -19,7 +19,7 @@ public class RequestLoggingFilter implements Filter {
         log.info("RequestID: {}, from: {}:{}, requestURL: {}",
                 req.getRequestId(),
                 req.getRemoteAddr(),
-                req.getRemoteHost(),
+                req.getRemotePort(),
                 req.getRequestURL());
 
         filterChain.doFilter(servletRequest, servletResponse);
