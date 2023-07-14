@@ -1,0 +1,27 @@
+server:
+  port: ${SPRING_SIMPLE_REST_API_PORT:8451}
+
+spring:
+  application:
+    name: SimpleRestApi
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_URL:localhost:5432/simple_rest_api_db}
+    username: ${POSTGRES_USERNAME:postgres}
+    password: ${POSTGRES_PASSWORD:postgres}
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+
+logging:
+  file:
+    name: ${SPRING_SIMPLE_REST_LOG_FILE_NAME:logs/simple_rest_api_ps.log}
+  rolling-policy:
+    file-name-pattern: ${SPRING_SIMPLE_REST_LOG_FILE_NAME_PATTERN:logs/myapp.%d{yyyy-MM-dd}.%i.log}
+    clean-history-on-start: false
+    max-history: 5
+    total-size-cap: 20MB
+  appender:
+    file:
+      prudent: true

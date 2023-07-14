@@ -16,11 +16,12 @@ public class RequestLoggingFilter implements Filter {
                          FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
 
-        log.info("RequestID: {}, from: {}:{}, requestURL: {}",
+        log.info("RequestID: {}, from: {}:{}, requestURL: {}, method: {}",
                 req.getRequestId(),
                 req.getRemoteAddr(),
                 req.getRemotePort(),
-                req.getRequestURL());
+                req.getRequestURL(),
+                req.getMethod());
 
         filterChain.doFilter(servletRequest, servletResponse);
     }
